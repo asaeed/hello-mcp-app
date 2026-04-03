@@ -31,7 +31,7 @@ function McpApp() {
       <h3>Hello MCP App</h3>
       <p>
         <strong>Server time:</strong>{" "}
-        <code style={{ background: "#f0f0f0", padding: "2px 6px", borderRadius: 4, color: "#0070f3" }}>
+        <code style={{ background: "#ff0000", color: "#ffffff", padding: "2px 6px", borderRadius: 4 }}>
           {loading ? "loading..." : time}
         </code>
       </p>
