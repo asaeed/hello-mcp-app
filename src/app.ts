@@ -9,6 +9,7 @@ import express from "express";
 import cors from "cors";
 import fs from "node:fs/promises";
 import path from "node:path";
+import crypto from "node:crypto";
 
 // In-memory invocation log (resets on cold start in serverless)
 export const invocations: { time: string; caller: string }[] = [];
@@ -18,7 +19,14 @@ const mcpServer = new McpServer({
   version: "1.0.0",
 });
 
-const resourceUri = "ui://hello-mcp-app/mcp-app.html";
+// Hash the built app HTML at startup so the resource URI changes on every deploy,
+// forcing clients to fetch a fresh copy rather than using a cached version.
+const mcpAppHtml = await fs.readFile(
+  path.join(process.cwd(), "dist", "mcp-app.html"),
+  "utf-8"
+);
+const appVersion = crypto.createHash("md5").update(mcpAppHtml).digest("hex").slice(0, 8);
+const resourceUri = `ui://hello-mcp-app/mcp-app-${appVersion}.html`;
 
 registerAppTool(
   mcpServer,
