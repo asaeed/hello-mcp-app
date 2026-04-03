@@ -31,8 +31,8 @@ function McpApp() {
       <h3>Hello MCP App</h3>
       <p>
         <strong>Server time:</strong>{" "}
-        <code style={{ background: "#f0f0f0", padding: "2px 6px", borderRadius: 4, color: "#0070f3" }}>
-          {loading ? "loading..." : time}
+        <code style={{ background: "#f0f0f0", padding: "2px 6px", borderRadius: 4, color: "#16a34a" }}>
+          {loading ? "loading..." : time ? new Date(time).toLocaleString() : "waiting..."}
         </code>
       </p>
       <button
